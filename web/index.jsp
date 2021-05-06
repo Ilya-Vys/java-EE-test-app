@@ -1,5 +1,4 @@
-<%@ page import="java.util.List" %>
-<%@ page import="java.time.LocalDate" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: ADMIN
   Date: 26.04.2021
@@ -14,7 +13,16 @@
   <body>
   <div>
     <h1>Currencies app!</h1>
-    <a href="currencies">-Go to currencies list</a>
+  </div>
+  <div class="row">
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn btn-secondary" onclick="location.href='/javaEETest5_war_exploded/currency?date=now'">Latest rate</button>
+      </div>
+      <div class="btn-group mr-2" role="group" aria-label="Second group">
+        <button type="button" class="btn btn-secondary" onclick="location.href='/javaEETest5_war_exploded/currencies'">Rate for a specific date</button>
+      </div>
+    </div>
   </div>
   </body>
 </html>

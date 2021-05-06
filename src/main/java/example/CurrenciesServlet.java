@@ -1,5 +1,6 @@
 package example;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,23 +8,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-@WebServlet("/currencies")
+
+@WebServlet(name = "Currencies", urlPatterns = "/currencies")
 public class CurrenciesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CurrencyDB db = CurrencyDB.getInstance();
-        Map<LocalDate, CurrencyRate> rates = db.getBase();
-        Collection<String> localDates = rates.keySet().stream()
-                .map(LocalDate::toString)
-                .collect(Collectors.toList());
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("currencies.jsp");
+        requestDispatcher.forward(req, resp);
+    }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String date = req.getParameter("date");
+        LocalDate localDate = LocalDate.parse(date);
+        CurrencyRate rate = CurrencyDB.getInstance().getBase().get(localDate);
+        req.setAttribute("model", rate);
 
-        req.setAttribute("model", localDates);
-        req.getRequestDispatcher("currencies.jsp").forward(req, resp);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("currency.jsp");
+        requestDispatcher.forward(req, resp);
     }
 }

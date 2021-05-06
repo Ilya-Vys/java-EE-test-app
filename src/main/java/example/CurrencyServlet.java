@@ -13,16 +13,21 @@ import java.time.LocalDate;
 import java.util.Map;
 
 
-@WebServlet("/currency")
+@WebServlet(name = "Currency", urlPatterns = "/currency")
 public class CurrencyServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CurrencyDB db = CurrencyDB.getInstance();
-        Map<LocalDate, CurrencyRate> rates = db.getBase();
         String date = req.getParameter("date");
-        LocalDate localDate = LocalDate.parse(date);
-        CurrencyRate rate = rates.get(localDate);
+        LocalDate localDate = date.equals("now")
+                ? LocalDate.now()
+                : LocalDate.parse(date);
+
+        Map<LocalDate, CurrencyRate> base = CurrencyDB.getInstance().getBase();
+
+        CurrencyRate rate = localDate == null
+                ? base.get(LocalDate.now())
+                : base.get(localDate);
 
         req.setAttribute("model", rate);
         req.getRequestDispatcher("currency.jsp").forward(req, resp);

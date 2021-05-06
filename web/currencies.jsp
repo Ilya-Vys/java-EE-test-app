@@ -14,17 +14,26 @@
     <title>Title</title>
 </head>
 <body>
-<ul>
-    <%
-        List<String> names = (List<String>) request.getAttribute("model");
+<div class="row">
+    <div class="col">
+        <h1>Choose a date</h1>
+    </div>
+</div>
+<div class="row">
+    <form method="post">
+        <div class="form-group row">
+            <div class="col">
+                <%
+                    LocalDate localDate = LocalDate.now();
+                %>
+                <input type="date" class="form-control" min="2020-01-01" max="<%= localDate %>" value="<%= localDate %>" name="date">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-secondary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
 
-        if (names != null && !names.isEmpty()) {
-            for (String date : names) {
-               response.getWriter().write(
-                       "<li>" + "<a href=currency?date=" + date + ">" + date + "</a>" + "</li>");
-            }
-        }
-    %>
-</ul>
 </body>
 </html>

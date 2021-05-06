@@ -12,7 +12,7 @@
     <title>Currency</title>
 </head>
 <body>
-<a href="currencies">-Go back to currencies list</a>
+<a href="index.jsp">-Go back to main menu</a>
 <ul>
     <%
         CurrencyRate rate = (CurrencyRate) request.getAttribute("model");
