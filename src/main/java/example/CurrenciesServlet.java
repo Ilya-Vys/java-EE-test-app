@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Map;
 
 
 @WebServlet(name = "Currencies", urlPatterns = "/currencies")
@@ -23,7 +24,10 @@ public class CurrenciesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String date = req.getParameter("date");
         LocalDate localDate = LocalDate.parse(date);
-        CurrencyRate rate = CurrencyDB.getInstance().getBase().get(localDate);
+        Map<LocalDate, CurrencyRate> map = CurrencyDB.getInstance().getBase();
+        CurrencyRate rate = map.containsKey(localDate)
+                ? map.get(localDate)
+                : map.get(LocalDate.now());
         req.setAttribute("model", rate);
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("currency.jsp");

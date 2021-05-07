@@ -2,8 +2,11 @@ package example;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
+import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.catalina.webresources.DirResourceSet;
+import org.apache.catalina.webresources.StandardRoot;
 
 
 import java.io.File;
@@ -15,14 +18,13 @@ public class Application {
         tomcat.setPort(8080);
         //создаем контекст
 
-        Context context = tomcat.addContext("/",
-                new File(".").getAbsolutePath());
+        StandardContext context = (StandardContext) tomcat.addWebapp("/",
+                                new File("web/").getAbsolutePath());
 
-        String servletName = "ExampleServlet";
-        //привязываем к контексту сервлет
-        Tomcat.addServlet(context, servletName, new ExampleServlet());
-        //связываем в контекст URL и сервлет
-        context.addServletMappingDecoded("/main", servletName);
+        WebResourceRoot resources = new StandardRoot(context);
+               resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
+                       new File("target/classes").getAbsolutePath(), "/"));
+                context.setResources(resources);
         tomcat.start();
         tomcat.getServer().await();
     }

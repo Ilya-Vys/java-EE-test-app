@@ -17,10 +17,10 @@
   <div class="row">
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
       <div class="btn-group mr-2" role="group" aria-label="First group">
-        <button type="button" class="btn btn-secondary" onclick="location.href='/javaEETest5_war_exploded/currency?date=now'">Latest rate</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/currency?date=now'">Latest rate</button>
       </div>
       <div class="btn-group mr-2" role="group" aria-label="Second group">
-        <button type="button" class="btn btn-secondary" onclick="location.href='/javaEETest5_war_exploded/currencies'">Rate for a specific date</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/currencies'">Rate for a specific date</button>
       </div>
     </div>
   </div>
