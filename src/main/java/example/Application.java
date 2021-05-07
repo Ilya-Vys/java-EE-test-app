@@ -2,6 +2,7 @@ package example;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
+import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 
 
