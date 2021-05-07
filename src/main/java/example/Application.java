@@ -1,6 +1,5 @@
 package example;
 
-import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.core.StandardContext;
@@ -19,12 +18,12 @@ public class Application {
         //создаем контекст
 
         StandardContext context = (StandardContext) tomcat.addWebapp("/",
-                                new File("web/").getAbsolutePath());
+                new File("web/").getAbsolutePath());
 
         WebResourceRoot resources = new StandardRoot(context);
-               resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
-                       new File("target/classes").getAbsolutePath(), "/"));
-                context.setResources(resources);
+        resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
+                new File("target/classes").getAbsolutePath(), "/"));
+        context.setResources(resources);
         tomcat.start();
         tomcat.getServer().await();
     }

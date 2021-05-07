@@ -1,8 +1,5 @@
 package example;
 
-import example.CurrencyDB;
-import example.CurrencyRate;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Map;
 
 
 @WebServlet(name = "Currency", urlPatterns = "/currency")
@@ -23,13 +19,11 @@ public class CurrencyServlet extends HttpServlet {
                 ? LocalDate.now()
                 : LocalDate.parse(date);
 
-        Map<LocalDate, CurrencyRate> base = CurrencyDB.getInstance().getBase();
 
-        CurrencyRate rate = localDate == null
-                ? base.get(LocalDate.now())
-                : base.get(localDate);
+        CurrenciesFromCBR currencies = new CurrenciesFromCBR(localDate).getCurrencies();
+        currencies.getRates().forEach(c -> System.out.println(c.getName()));
 
-        req.setAttribute("model", rate);
+        req.setAttribute("model", currencies);
         req.getRequestDispatcher("currency.jsp").forward(req, resp);
 
     }
