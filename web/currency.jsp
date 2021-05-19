@@ -1,6 +1,6 @@
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="example.CurrenciesFromCBR" %>
-<%@ page import="example.CurrencyRateFromCBR" %>
+<%@ page import="example.dto.CurrenciesFromCBR" %>
+<%@ page import="example.dto.CurrencyRateFromCBR" %>
 <%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
@@ -27,6 +27,7 @@
     <table>
         <thead>
         <tr>
+            <td>ID</td>
             <td>NumCode</td>
             <td>CharCode</td>
             <td>Nominal</td>
@@ -38,6 +39,8 @@
             List<CurrencyRateFromCBR> rates = rate.getRates();
             for (CurrencyRateFromCBR rateFromCBR : rates) {%>
         <tr>
+            <td><%=rateFromCBR.getId()%>
+            </td>
             <td><%=rateFromCBR.getNumCode()%>
             </td>
             <td><%=rateFromCBR.getCharCode()%>
