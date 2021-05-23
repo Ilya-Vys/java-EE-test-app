@@ -20,6 +20,11 @@ public class CurrenciesFromCBR {
         this.rates = parser.getCurrencies(date, url);
     }
 
+    public CurrenciesFromCBR(LocalDate localDate, List<CurrencyRateFromCBR> rates) {
+        this.localDate = localDate;
+        this.rates = rates;
+    }
+
     public CurrenciesFromCBR getCurrencies2(){
         return this;
     }
